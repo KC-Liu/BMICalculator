@@ -33,26 +33,26 @@ enum BMILevel{
 
 
 struct BMIKernel{
-    var weight:Float = 0.0 , height:Float = 0.0
+    var weight:Float = 0.0 , height:Float = 1.0
     func calculateBMI() ->  (bmi:Float , catagory:BMILevel){
-        var bmi:Float = 10000*self.weight/(self.height * self.height)
+        var bmi:Float = 0
+        if ( self.height>0 && self.weight>=0 ){
+            bmi = 10000*self.weight/(self.height * self.height)
+        }
         var catagory:BMILevel
-        if (bmi<18.5) {
+        
+        switch bmi{
+        case 0..18.5:
             catagory = BMILevel.Light
-        }
-        else if(bmi<24){
+        case 18.5..24:
             catagory = BMILevel.Normal
-        }
-        else if(bmi<27){
+        case 24..27:
             catagory = BMILevel.Over
-        }
-        else if(bmi<30){
+        case 27..30:
             catagory =  BMILevel.Fat1
-        }
-        else if(bmi<35){
+        case 30..35:
             catagory = BMILevel.Fat2
-        }
-        else {
+        default:
             catagory = BMILevel.Fat3
         }
         return (bmi,catagory)
